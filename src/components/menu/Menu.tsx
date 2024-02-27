@@ -5,12 +5,13 @@ import { FaHome } from 'react-icons/fa';
 import { SiYoutubestudio } from 'react-icons/si';
 import { FiAirplay } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
-import { LightDarkTheme } from '../LightDarkTheme/LightDarkTheme';
+import { LightDarkTheme } from '../../ui/LightDarkTheme/LightDarkTheme';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { useAuth } from '@/redux/auth/auth';
 import { useGetProfileQuery } from '@/redux/api/api';
-import { Avatar, User } from '@nextui-org/react';
-import { formatNumberTok } from '../utils/formatNumber';
+import { User } from '@nextui-org/react';
+import { formatNumberTok } from '@/utils/formatNumber';
+
 const menuLink = [
   { name: 'Главная', link: '/', icon: <FaHome />, user: true },
   { name: 'Студиа', link: '/studia', icon: <SiYoutubestudio />, user: true },
@@ -22,7 +23,7 @@ export const Menu = () => {
   const pathname = usePathname();
   const { data } = useGetProfileQuery(null, { skip: !user });
   return (
-    <div className="w-[250px] h-[100%] flex flex-col px-6 py-6">
+    <div className="w-[250px] flex flex-col px-6 py-6">
       <h1>Rutube v2</h1>
       <div className=" mt-8 h-full flex  flex-col">
         <h2 className=" font-medium text-xl ">Меню</h2>

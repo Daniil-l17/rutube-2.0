@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Switch} from "@nextui-org/react";
 import { SunIcon } from '@/images/Icons/SunIcon';
 import { MoonIcon } from '@/images/Icons/MoonIcon';
 
 export const LightDarkTheme = () => {
-  const [theme,setTheme] = useState(true)
+  const [theme,setTheme] = useState(false)
   const click = () => {
     setTheme(theme => !theme)
-    theme ? document.body.classList.add('darkTheme') : document.body.classList.remove('darkTheme')
   }
+
+
+  useEffect(() => {
+    theme ? document.body.classList.add('darkTheme') : document.body.classList.remove('darkTheme')
+  },[theme])
+  
   return (
     <Switch
       defaultSelected
@@ -17,9 +22,11 @@ export const LightDarkTheme = () => {
       className=' !text-[#939393] '
       startContent={<SunIcon />}
       onClick={click}
+      onKeyUp={e => e.code === 'Space' && setTheme(prev => !prev)}
       endContent={<MoonIcon />}
     >
-      <p className='!text-[#939393]'>{theme ? 'темная тема' : 'светлая тема'}</p>
+      <p className='!text-[#939393]'>{!theme ? 'темная тема' : 'светлая тема'}</p>
+
     </Switch>
   )
 }

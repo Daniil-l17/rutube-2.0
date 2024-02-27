@@ -3,7 +3,7 @@ import { IauthData } from '@/types/authLogin';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export interface Idata {
-  email: string;
+  email: string
   password: string;
 }
 

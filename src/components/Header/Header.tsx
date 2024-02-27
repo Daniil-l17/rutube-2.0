@@ -12,6 +12,7 @@ import {
   Input,
   Link,
   Avatar,
+  Badge,
 } from '@nextui-org/react';
 import { Popover, PopoverTrigger, PopoverContent, Button, User } from '@nextui-org/react';
 
@@ -32,14 +33,16 @@ const Header = memo(() => {
   console.log(data)
   
   return (
-    <header className=" sticky top-1 flex justify-between items-center w-full">
+    <header className=" pr-14 py-3 sticky top-1 flex justify-between items-center w-full">
       <Search />
       
       {user ? (
         <Popover  showArrow placement="bottom">
           <PopoverTrigger className='cursor-pointer' >
             <div className='flex gap-2 items-center'>
+            <Badge content="5" color="primary">
             <Avatar src={`http://localhost:4200/uploads/avatar/${data?.avatarPath}`} />
+              </Badge>
             <div className='flex flex-col items-center'>
               <h2 className=' font-medium text-[20px]'>{data?.name}</h2>
             </div>
@@ -51,7 +54,7 @@ const Header = memo(() => {
           </PopoverContent>
         </Popover>
       ) : (
-        <Button onPress={onOpen} className=" bg-[#3f3f46] px-6 text-[#f4f6fb]">
+        <Button  onPress={onOpen} className=" bg-[#3f3f46] px-6 text-[#f4f6fb]">
           Войти
         </Button>
       )}
