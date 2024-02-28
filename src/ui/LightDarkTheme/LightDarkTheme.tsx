@@ -21,12 +21,11 @@ export const LightDarkTheme = () => {
       color='secondary'
       className=' !text-[#939393] '
       startContent={<SunIcon />}
+      endContent={<MoonIcon />}
       onClick={click}
       onKeyUp={e => e.code === 'Space' && setTheme(prev => !prev)}
-      endContent={<MoonIcon />}
-    >
-      <p className='!text-[#939393]'>{!theme ? 'темная тема' : 'светлая тема'}</p>
-
+      >
     </Switch>
   )
 }
+

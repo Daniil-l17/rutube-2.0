@@ -15,7 +15,7 @@ import { formatNumberTok } from '@/utils/formatNumber';
 const menuLink = [
   { name: 'Главная', link: '/', icon: <FaHome />, user: true },
   { name: 'Студиа', link: '/studia', icon: <SiYoutubestudio />, user: true },
-  { name: 'Мой канал', link: '/channel', icon: <FiAirplay />, user: false },
+  { name: 'Мой канал', link: '/Mychannel', icon: <FiAirplay />, user: false },
 ];
 
 export const Menu = () => {

@@ -30,7 +30,7 @@ export const UserHeader = memo(({logout,data}:{logout: () => void,data:Iuser}) =
     <div className="flex gap-3">
     <div className="flex gap-1">
           <p className="text-default-600 text-small">{data?.subscriptions.length}</p>
-          <p className=" text-default-500 font-medium text-small">Подписки</p>
+          <p className=" text-default-500 font-medium text-small">Подписок</p>
         </div>
         <div className="flex gap-1">
           <p className="text-default-600 text-small">{formatNumberTok(data?.subscribersCount)}</p>

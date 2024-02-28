@@ -11,6 +11,9 @@ const config: Config = {
     colors: {
       main: '#f4f6fb'
     },
+    fontSize: {
+      glav: '30px'
+    },
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
