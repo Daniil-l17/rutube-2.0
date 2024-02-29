@@ -1,16 +1,17 @@
-import { Metadata } from 'next'
-import React from 'react'
+import { ProvaderChannelUserProfile } from '@/provaders/ProvaderChannelUserProfile';
+import { Metadata } from 'next';
+import { Fragment } from 'react';
 
+export const metadata: Metadata = {
+  title: 'profile',
+};
 
-  export const metadata:Metadata = {
-    title: 'profile'
-  }
-
-
-const page = ({params }: { params: { id: string }}) => {
+const page = ({ params }: { params: { id: string } }) => {
   return (
-    <div>page {params.id}</div>
-  )
-}
+    <ProvaderChannelUserProfile id={params.id}>
+      <Fragment/>
+    </ProvaderChannelUserProfile>
+  );
+};
 
-export default page
+export default page;

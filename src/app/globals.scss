@@ -1,8 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'react-redux-toastr/src/styles/index';
 
-/* Reset and base styles  */
+.redux-toastr {
+  .toastr {
+    width: 330px;
+    height: 100px;
+    @apply shadow text-medium ;
+    background-color: #272532;
+    &.rrt-success {
+      background-color: #56db8b;
+    }
+    &.rrt-warning {
+      background-color: #eaa84c;
+    }
+    &.rrt-info {
+      background-color: #4b85e7;
+    }
+    &.rrt-error {
+      background-color: #e94d4d;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+  }
+}
+
+
+
 * {
 	padding: 0px;
 	margin: 0px;

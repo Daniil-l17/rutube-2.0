@@ -1,6 +1,7 @@
 import { axiosBase } from '@/config/axiosConfig';
 import { IauthData } from '@/types/authLogin';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { toastr } from 'react-redux-toastr';
 
 export interface Idata {
   email: string
@@ -12,8 +13,10 @@ export const login = createAsyncThunk<IauthData, Idata>(
   async ({ email, password }, thunkAPI) => {
     try {
       const result = await axiosBase.post('/auth/login', { email, password });
+      toastr.success('Поздравляем!!', 'Успешный вход в аккаунт')
       return result.data;
     } catch (e) {
+      toastr.error('Ошибка', 'Не верная почта или пороль')
       return thunkAPI.rejectWithValue(e);
     }
   },
@@ -24,8 +27,10 @@ export const register = createAsyncThunk<IauthData, Idata>(
   async ({ email, password }, thunkAPI) => {
     try {
       const responce = await axiosBase.post(email, password);
+      toastr.success('Поздравляем!!', 'Успешный Регестрация')
       return responce.data;
     } catch (e) {
+      toastr.error('Ошибка', 'Не вырная почта или пороль')
       return thunkAPI.rejectWithValue(e);
     }
   },

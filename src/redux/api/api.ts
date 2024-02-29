@@ -21,7 +21,27 @@ export const api = createApi({
       query: () => '/user/profile',
       providesTags: () => [{ type: 'Profile' }],
     }),
+    getProfileChannelDetail: builder.query<Iuser,string>({
+      query: (id) => ({
+        url: `/user/by-id/${id}`,
+      }),
+    }),
+    getSubscribeUser: builder.mutation<boolean,number | undefined>({
+      query: (id) => ({
+        url: `user/subscribe/${id}`,
+        method: 'PATCH'
+      }),
+      invalidatesTags: () => [{type: 'Profile'}]
+    }),
+    updateProfile: builder.mutation<Iuser,Iuser>({
+      query: (info) => ({
+        url: `user/${info.id}`,
+        method: 'PUT',
+        body: info
+      }),
+      invalidatesTags: () => [{type: 'Profile'}]
+    })
   })
 })
 
-export const { useGetProfileQuery } = api
+export const { useGetProfileQuery,useGetProfileChannelDetailQuery,useGetSubscribeUserMutation,useUpdateProfileMutation } = api

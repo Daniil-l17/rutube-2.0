@@ -27,7 +27,7 @@ export default function RootLayout({
           <NextProviderUI>
             <NextTopLoader color='#c01b1be0' />
             <Menu />
-            <div className='py-6 h-[100vh] pl-14 flex-1'>
+            <div className='py-6 pl-14 flex-1'>
               <Header/>
             {children}
             </div>

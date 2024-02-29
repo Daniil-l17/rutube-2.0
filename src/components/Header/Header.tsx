@@ -1,5 +1,5 @@
 'use client';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { Search } from '../search/Search';
 import {
   Modal,
@@ -23,21 +23,23 @@ import { Idata, actions, login, useAuth } from '@/redux/auth/auth';
 import { useDispatch } from 'react-redux';
 import { useGetProfileQuery } from '@/redux/api/api';
 import confetti from 'canvas-confetti';
+
 const Header = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const user = useAppSelector(useAuth);
   const [infoUser, setInfoUser] = useState<Idata>({ email: '', password: '' });
   const db = useDispatch();
-  const { data,isLoading } = useGetProfileQuery(null, { skip: !user });
-  console.log(data);
+  const { data, isLoading } = useGetProfileQuery(null, { skip: !user });
+
+
 
   const handleConfetti = (onClose: () => void) => {
-    if(user){
+    if (user) {
       var count = 200;
       var defaults = {
         origin: { y: 0.7 },
       };
-  
+
       function fire(particleRatio: any, opts: any) {
         confetti({
           ...defaults,
@@ -45,7 +47,7 @@ const Header = memo(() => {
           particleCount: Math.floor(count * particleRatio),
         });
       }
-  
+
       fire(0.25, {
         spread: 26,
         startVelocity: 55,
@@ -73,10 +75,9 @@ const Header = memo(() => {
   };
 
   return (
-    <header className=" pr-14 py-3 sticky top-1 flex justify-between items-center w-full">
+    <header className=" pr-14 py-3 sticky z-20 bg-[#111]   top-0 flex justify-between items-center w-full">
       <Search />
-
-      {user ? 
+      {user && data?.name ? (
         <Popover showArrow placement="bottom">
           <PopoverTrigger className="cursor-pointer">
             <div className="flex gap-2 items-center">
@@ -92,7 +93,7 @@ const Header = memo(() => {
             <UserHeader data={data!} logout={() => db(actions.logoutFromAccount())} />
           </PopoverContent>
         </Popover>
-      : (
+      ) : (
         <Button onPress={onOpen} className=" bg-[#3f3f46] px-6 text-[#f4f6fb]">
           Войти
         </Button>
@@ -136,7 +137,7 @@ const Header = memo(() => {
                   placeholder="Enter your email"
                   variant="bordered"
                   value={infoUser.email}
-                  onChange={e => setInfoUser(prev => ({...prev,email: e.target.value}))}
+                  onChange={e => setInfoUser(prev => ({ ...prev, email: e.target.value }))}
                   className=" border border-solid rounded-2xl"
                 />
                 <Input
@@ -144,7 +145,7 @@ const Header = memo(() => {
                     <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Password"
-                  onChange={e => setInfoUser(prev => ({...prev,password: e.target.value}))}
+                  onChange={e => setInfoUser(prev => ({ ...prev, password: e.target.value }))}
                   placeholder="Enter your password"
                   type="password"
                   value={infoUser.password}

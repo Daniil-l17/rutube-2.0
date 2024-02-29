@@ -4,7 +4,7 @@ import {Card, CardBody, CardFooter, Image} from "@nextui-org/react";
 
 export default function Home() {
   return (
-    <div className="  h-[94%] overflow-auto">
+    <div className="">
       <div className=" mt-7">
       <h2 className=" text-[40px] font-medium ">Главная</h2>
       </div>

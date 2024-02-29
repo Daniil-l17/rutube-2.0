@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { reducer } from '../auth/auth';
 import { api } from '../api/api';
-
+import {reducer as toastrReducer} from 'react-redux-toastr'
 const persistConfig = {
   key: 'root',
   storage,
@@ -14,6 +14,7 @@ const persistConfig = {
 
 const reducerSmain = combineReducers({
   auth: reducer,
+  toastr: toastrReducer,
   [api.reducerPath]: api.reducer,
 });
 

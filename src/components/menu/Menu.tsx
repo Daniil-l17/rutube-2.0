@@ -23,7 +23,7 @@ export const Menu = () => {
   const pathname = usePathname();
   const { data } = useGetProfileQuery(null, { skip: !user });
   return (
-    <div className="w-[250px] flex flex-col px-6 py-6">
+    <div className="w-[250px] h-[960px] sticky top-0 flex flex-col px-6 py-6">
       <h1>Rutube v2</h1>
       <div className=" mt-8 h-full flex  flex-col">
         <h2 className=" font-medium text-xl ">Меню</h2>
@@ -52,7 +52,7 @@ export const Menu = () => {
             <h2 className="font-medium text-xl">Мои подписки</h2>
             <ul className=" mt-3 flex flex-col gap-4 overflow-auto h-[400px]">
               {data?.subscriptions.map(el => (
-                <Link href={''} key={el.toChannel.id}>
+                <Link href={`/channel/${el.toChannel.id}`} key={el.toChannel.id}>
                   <User
                     name={!el.toChannel.name.length ? 'пользователь' : el.toChannel.name}
                     description={formatNumberTok(el.toChannel.subscribersCount)}
