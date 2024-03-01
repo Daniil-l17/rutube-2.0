@@ -6,7 +6,7 @@ import { SiYoutubestudio } from 'react-icons/si';
 import { FiAirplay } from 'react-icons/fi';
 import { usePathname } from 'next/navigation';
 import { LightDarkTheme } from '../../ui/LightDarkTheme/LightDarkTheme';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAuth } from '@/redux/auth/auth';
 import { useGetProfileQuery } from '@/redux/api/api';
 import { User } from '@nextui-org/react';
@@ -75,7 +75,7 @@ export const Menu = () => {
             </h2>
           </div>
         )}
-        <div className=" flex-1  justify-center items-end flex mt-6">
+        <div className=" flex-1  justify-center items-end flex ">
           <LightDarkTheme />
         </div>
       </div>

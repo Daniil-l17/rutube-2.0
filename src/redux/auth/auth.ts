@@ -2,6 +2,10 @@ import { axiosBase } from '@/config/axiosConfig';
 import { IauthData } from '@/types/authLogin';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toastr } from 'react-redux-toastr';
+import { IAuthState } from './authInterfase';
+import { toast } from 'react-toastify';
+
+
 
 export interface Idata {
   email: string
@@ -13,10 +17,10 @@ export const login = createAsyncThunk<IauthData, Idata>(
   async ({ email, password }, thunkAPI) => {
     try {
       const result = await axiosBase.post('/auth/login', { email, password });
-      toastr.success('Поздравляем!!', 'Успешный вход в аккаунт')
+      toast.success("Успешный вход в аккаунт",{theme: 'colored'})
       return result.data;
     } catch (e) {
-      toastr.error('Ошибка', 'Не верная почта или пороль')
+      toast.error("Ошибка - Не верная почта или пороль",{theme: 'colored'})
       return thunkAPI.rejectWithValue(e);
     }
   },
@@ -36,21 +40,12 @@ export const register = createAsyncThunk<IauthData, Idata>(
   },
 );
 
-interface userS {
-  id: number;
-  email: string;
-}
 
-interface slice {
-  user: null | userS;
-  loading: boolean;
-  acessToken: string;
-}
 
-const initialState: slice = {
+const initialState: IAuthState = {
   user: null,
   loading: false,
-  acessToken: '',
+  accessToken: '',
 };
 
 export const authSlice = createSlice({
@@ -58,7 +53,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logoutFromAccount: state => {
-      state.acessToken = '',
+      state.accessToken = '',
       state.loading = true,
       state.user = null
     },
@@ -71,7 +66,7 @@ export const authSlice = createSlice({
         state = initialState;
       }),
       builder.addCase(login.fulfilled, (state, { payload }) => {
-        (state.user = payload.user), (state.acessToken = payload.acessToken);
+        (state.user = payload.user), (state.accessToken = payload.acessToken);
         state.loading = false;
       }),
       builder.addCase(register.pending, state => {
@@ -81,7 +76,7 @@ export const authSlice = createSlice({
         state = initialState;
       }),
       builder.addCase(register.fulfilled, (state, { payload }) => {
-        (state.user = payload.user), (state.acessToken = payload.acessToken);
+        (state.user = payload.user), (state.accessToken = payload.acessToken);
         state.loading = false;
       });
   },

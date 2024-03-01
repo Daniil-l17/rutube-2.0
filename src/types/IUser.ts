@@ -23,6 +23,7 @@ export interface Iuser extends Ibase {
 
   subscriptions: ISubscription[]
 
+  profileUrl: string
 
 } 
 

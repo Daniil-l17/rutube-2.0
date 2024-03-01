@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { RootState } from "../store/store";
 import { Iuser } from "@/types/IUser";
+import { updateProfiledata } from "@/provaders/ChannelProvader";
 
 
 export const api = createApi({
   reducerPath: 'api',
-  tagTypes: ['Profile'],
+  tagTypes: ['Profile','Video'],
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4200/api',
     prepareHeaders: (headers,{getState}) => {
-      const token = (getState() as RootState).auth.acessToken
+      const token = (getState() as RootState).auth.accessToken
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -33,11 +34,11 @@ export const api = createApi({
       }),
       invalidatesTags: () => [{type: 'Profile'}]
     }),
-    updateProfile: builder.mutation<Iuser,Iuser>({
+    updateProfile: builder.mutation<Iuser,updateProfiledata>({
       query: (info) => ({
         url: `user/${info.id}`,
         method: 'PUT',
-        body: info
+        body: (info)
       }),
       invalidatesTags: () => [{type: 'Profile'}]
     })

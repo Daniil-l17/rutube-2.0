@@ -18,11 +18,12 @@ import { Popover, PopoverTrigger, PopoverContent, Button } from '@nextui-org/rea
 import { MailIcon } from '@/images/Icons/MailIcon';
 import { LockIcon } from '@/images/Icons/LockIcon';
 import { UserHeader } from '../userHeader/UserHeader';
-import { useAppSelector } from '../hooks/useAppSelector';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { Idata, actions, login, useAuth } from '@/redux/auth/auth';
 import { useDispatch } from 'react-redux';
 import { useGetProfileQuery } from '@/redux/api/api';
 import confetti from 'canvas-confetti';
+
 
 const Header = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -30,8 +31,6 @@ const Header = memo(() => {
   const [infoUser, setInfoUser] = useState<Idata>({ email: '', password: '' });
   const db = useDispatch();
   const { data, isLoading } = useGetProfileQuery(null, { skip: !user });
-
-
 
   const handleConfetti = (onClose: () => void) => {
     if (user) {
@@ -169,7 +168,11 @@ const Header = memo(() => {
                   Close
                 </Button>
                 <Button
-                  onClick={() => db(login(infoUser))}
+                  onClick={() =>
+                    db(login(infoUser))
+                      .unwrap()
+                      .catch(() => setInfoUser({ email: '', password: '' }))
+                  }
                   color="primary"
                   onPress={() => handleConfetti(onClose)}>
                   Войти

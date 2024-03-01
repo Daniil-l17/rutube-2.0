@@ -1,6 +1,6 @@
 'use client'
 
-import { useAppSelector } from "@/components/hooks/useAppSelector"
+import { useAppSelector } from "@/hooks/useAppSelector"
 import { useAuth } from "@/redux/auth/auth"
 import { redirect } from "next/navigation"
 import { useLayoutEffect } from "react"

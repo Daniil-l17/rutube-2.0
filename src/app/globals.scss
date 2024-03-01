@@ -3,27 +3,8 @@
 @tailwind utilities;
 @import 'react-redux-toastr/src/styles/index';
 
-.redux-toastr {
-  .toastr {
-    width: 330px;
-    height: 100px;
-    @apply shadow text-medium ;
-    background-color: #272532;
-    &.rrt-success {
-      background-color: #56db8b;
-    }
-    &.rrt-warning {
-      background-color: #eaa84c;
-    }
-    &.rrt-info {
-      background-color: #4b85e7;
-    }
-    &.rrt-error {
-      background-color: #e94d4d;
-      display: flex !important;
-      flex-direction: column !important;
-    }
-  }
+.Toastify__progress-bar{
+  background: rgb(255, 255, 255) !important;
 }
 
 

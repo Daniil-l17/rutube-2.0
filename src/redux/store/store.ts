@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { reducer } from '../auth/auth';
 import { api } from '../api/api';
 import {reducer as toastrReducer} from 'react-redux-toastr'
+import { setupListeners } from '@reduxjs/toolkit/query';
 const persistConfig = {
   key: 'root',
   storage,
@@ -31,5 +32,6 @@ export const store = configureStore({
   }).concat(api.middleware),
 })
 
+setupListeners(store.dispatch)
 export const persistor = persistStore(store)
 export type RootState = ReturnType<typeof store.getState>
