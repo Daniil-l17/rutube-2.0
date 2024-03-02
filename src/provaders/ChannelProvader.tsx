@@ -15,6 +15,7 @@ import { ModalUpdateUser } from '@/components/modalUpdateUser/ModalUpdateUser';
 import { toastr } from 'react-redux-toastr';
 import { toast } from 'react-toastify';
 import { CameraIcon } from '@/images/Icons/CameraIcon';
+import { GalleryIcon } from '@/images/Icons/GaleryIcon';
 export interface updateProfiledata {
   email: string;
   name: string;
@@ -42,10 +43,10 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
     updateprofile(infoUser)
       .unwrap()
       .then(() => {
-        toast.success("Профиль усмешно изменен ",{theme: 'colored'})
-        updateClose()
+        toast.success('Профиль усмешно изменен ', { theme: 'colored' });
+        updateClose();
       })
-      .catch(() => toast.error("Ошибка - проверить данные",{theme: 'colored'}));
+      .catch(() => toast.error('Ошибка - проверить данные', { theme: 'colored' }));
   };
 
   return (
@@ -54,7 +55,7 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
         <h2>loading.....</h2>
       ) : (
         <div>
-                    <div
+          <div
             style={{
               backgroundImage: `url(http://localhost:4200/uploads/banneprofile/${data?.profileUrl} )`,
               backgroundRepeat: 'no-repeat',
@@ -64,23 +65,37 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
               borderRadius: '25px',
               height: '250px',
             }}
-            className="flex bg-[#222222]  z-10 justify-center items-center ">
-              {!!!data?.profileUrl && <CameraIcon className="animate-pulse -z-10 cursor-pointer  w-20 h-20 text-default-500" fill="currentColor" size={20} />}
-            </div>
+            className="imgfil flex bg-[#222222]  z-10 justify-center items-center ">
+            {!!!data?.profileUrl && (
+              <CameraIcon
+                className="animate-pulse -z-10 cursor-pointer  w-20 h-20 text-default-500"
+                fill="currentColor"
+                size={20}
+              />
+            )}
+          </div>
           <div className="flex gap-4 px-6 py-4">
-            <Image
-              style={{ borderRadius: '100px', width: '180px', height: '180px' }}
-              loader={() => src}
-              priority
-              src={src}
-              alt="user"
-              width={180}
-              height={180}
-            />
+            {data?.avatarPath ? (
+              <Image
+                style={{ borderRadius: '100px', width: '180px', height: '180px' }}
+                loader={() => src}
+                priority
+                src={src}
+                alt="user"
+                width={180}
+                height={180}
+              />
+            ) : (
+              <div
+                style={{ borderRadius: '100px', width: '180px', height: '180px' }}
+                className=" bg-[#222222] flex justify-center">
+                <GalleryIcon />
+              </div>
+            )}
             <div className="flex flex-col">
               <div>
                 <h2 style={{ fontSize: '33px' }} className=" text-main uppercase font-medium">
-                  {data?.name}
+                  {data?.name ? data.name : 'Пользователь'}
                 </h2>
                 <p>{`@${data?.email}`}</p>
               </div>

@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {
-  title: 'profile',
+  title: 'профель',
 };
 
 const page = ({ params }: { params: { id: string } }) => {

@@ -1,11 +1,11 @@
 import React from "react";
-export const CameraIcon = ({fill, size, height, width, ...props}) => {
+export const CameraIcon = ({fill, size, ...props}) => {
   return (
     <svg
       fill="none"
-      height={size || height || 24}
+      height={size || 24}
       viewBox="0 0 24 24"
-      width={size || width || 24}
+      width={size || 24}
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >

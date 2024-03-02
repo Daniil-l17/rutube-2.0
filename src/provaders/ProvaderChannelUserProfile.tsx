@@ -14,9 +14,9 @@ import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { FaChevronRight } from 'react-icons/fa';
 import { formatNumberTok } from '@/utils/formatNumber';
-import { toastr } from 'react-redux-toastr';
 import { UserNoVideo } from '@/components/userNoVideo/UserNoVideo';
 import { CameraIcon } from '@/images/Icons/CameraIcon';
+import { toast } from 'react-toastify';
 export const ProvaderChannelUserProfile = ({
   children,
   id,
@@ -51,8 +51,14 @@ export const ProvaderChannelUserProfile = ({
               height: '250px',
             }}
             className="flex bg-[#222222] justify-center items-center ">
-              {!!!data?.profileUrl && <CameraIcon className="animate-pulse cursor-pointer z-20  w-20 h-20 text-default-500" fill="currentColor" size={20} />}
-            </div>
+            {!!!data?.profileUrl && (
+              <CameraIcon
+                className="animate-pulse cursor-pointer z-20  w-20 h-20 text-default-500"
+                fill="currentColor"
+                size={20}
+              />
+            )}
+          </div>
           <div className="flex gap-4 px-6 py-6">
             <Image
               style={{ borderRadius: '100px', width: '180px', height: '180px' }}
@@ -90,8 +96,8 @@ export const ProvaderChannelUserProfile = ({
                   onClick={() => {
                     subscribe(data?.id),
                       !isExsict
-                        ? toastr.success('Вы подписались на', `${data?.name}`)
-                        : toastr.error('Вы отписались от', `${data?.name}`);
+                        ? toast.success(`Вы подписались на ${data?.name}`, { theme: 'colored' })
+                        : toast.error(`Вы отписались от ${data?.name}`, { theme: 'colored' });
                   }}
                   className="bg-[#222222] font-medium text-main "
                   variant="faded">

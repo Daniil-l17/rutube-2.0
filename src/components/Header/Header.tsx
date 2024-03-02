@@ -19,18 +19,40 @@ import { MailIcon } from '@/images/Icons/MailIcon';
 import { LockIcon } from '@/images/Icons/LockIcon';
 import { UserHeader } from '../userHeader/UserHeader';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { Idata, actions, login, useAuth } from '@/redux/auth/auth';
+import { Idata, actions, login, register, useAuth } from '@/redux/auth/auth';
 import { useDispatch } from 'react-redux';
 import { useGetProfileQuery } from '@/redux/api/api';
 import confetti from 'canvas-confetti';
-
-
+import { CameraIcon } from '@/images/Icons/CameraIcon';
+import { LuDownload } from 'react-icons/lu';
+import { useRouter } from 'next/navigation';
+import { VideoCreateModel } from '../VideoCreateModel/VideoCreateModel';
 const Header = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  const {
+    isOpen: createVideo,
+    onOpen: opencreatvieo,
+    onOpenChange: onOpencreateVideo,
+  } = useDisclosure();
   const user = useAppSelector(useAuth);
   const [infoUser, setInfoUser] = useState<Idata>({ email: '', password: '' });
+  const [authRegistrAndLogin, setAuthRegistrAndLogin] = useState<'login' | 'register'>('login');
   const db = useDispatch();
   const { data, isLoading } = useGetProfileQuery(null, { skip: !user });
+  const route = useRouter();
+
+  const authAcc = () => {
+    if (authRegistrAndLogin === 'login') {
+      db(login(infoUser))
+        .unwrap()
+        .catch(() => setInfoUser({ email: '', password: '' }));
+    } else {
+      db(register(infoUser))
+        .unwrap()
+        .catch(() => setInfoUser({ email: '', password: '' }));
+    }
+  };
 
   const handleConfetti = (onClose: () => void) => {
     if (user) {
@@ -74,30 +96,51 @@ const Header = memo(() => {
   };
 
   return (
-    <header className=" pr-14 py-3 sticky z-20 bg-[#111]   top-0 flex justify-between items-center w-full">
+    <header className=" pr-14 py-3 sticky z-20 bg-[#111]  top-0 flex justify-between items-center w-full">
       <Search />
-      {user && data?.name ? (
-        <Popover showArrow placement="bottom">
-          <PopoverTrigger className="cursor-pointer">
-            <div className="flex gap-2 items-center">
-              <Badge content={data?.subscriptions.length} color="primary">
-                <Avatar src={`http://localhost:4200/uploads/avatar/${data?.avatarPath}`} />
-              </Badge>
-              <div className="flex flex-col items-center">
-                <h2 className=" font-medium text-[20px]">{data?.name}</h2>
+      {user ? (
+        <div className="flex gap-5">
+          <VideoCreateModel
+            isOpen={createVideo}
+            onOpenChange={onOpencreateVideo}
+          />
+          <Popover showArrow placement="bottom">
+            <PopoverTrigger className="cursor-pointer">
+              <div className="flex gap-4 items-center">
+                <Badge content={data?.subscriptions.length} color="primary">
+                  {data?.avatarPath ? (
+                    <Avatar src={`http://localhost:4200/uploads/avatar/${data?.avatarPath}`} />
+                  ) : (
+                    <div className=" bg-[#4c4b4b] w-10 h-10 rounded-[30px] flex justify-center">
+                      <CameraIcon />
+                    </div>
+                  )}
+                </Badge>
+                <div className="flex flex-col items-center">
+                  <h2 className=" font-medium text-[20px]">
+                    {data?.name ? data.name : 'Пользователь'}
+                  </h2>
+                </div>
               </div>
-            </div>
-          </PopoverTrigger>
-          <PopoverContent className="p-1 bg-transparent ">
-            <UserHeader data={data!} logout={() => db(actions.logoutFromAccount())} />
-          </PopoverContent>
-        </Popover>
+            </PopoverTrigger>
+            <PopoverContent className="p-1 bg-transparent ">
+              <UserHeader data={data!} logout={() => db(actions.logoutFromAccount())} />
+            </PopoverContent>
+          </Popover>
+          <LuDownload
+            onClick={() => {
+              route.push('/studia'), opencreatvieo();
+            }}
+            className=" cursor-pointer text-[25px] text-[#6657d4]"
+          />
+        </div>
       ) : (
         <Button onPress={onOpen} className=" bg-[#3f3f46] px-6 text-[#f4f6fb]">
           Войти
         </Button>
       )}
       <Modal
+        size="2xl"
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         placement="top-center"
@@ -125,7 +168,9 @@ const Header = memo(() => {
         <ModalContent>
           {onClose => (
             <>
-              <ModalHeader className="flex  flex-col gap-1">Войти</ModalHeader>
+              <ModalHeader className="flex  flex-col gap-1">
+                {authRegistrAndLogin === 'login' ? 'Вход' : 'Регестриция'}
+              </ModalHeader>
               <ModalBody>
                 <Input
                   autoFocus
@@ -163,20 +208,22 @@ const Header = memo(() => {
                   </Link>
                 </div>
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="flat" onPress={onClose}>
-                  Close
-                </Button>
-                <Button
+              <ModalFooter className="flex justify-between items-center">
+                <h2
                   onClick={() =>
-                    db(login(infoUser))
-                      .unwrap()
-                      .catch(() => setInfoUser({ email: '', password: '' }))
+                    setAuthRegistrAndLogin(prev => (prev === 'login' ? 'register' : 'login'))
                   }
-                  color="primary"
-                  onPress={() => handleConfetti(onClose)}>
-                  Войти
-                </Button>
+                  className=" cursor-pointer">
+                  {authRegistrAndLogin !== 'login' ? 'Войти в аккаунт' : 'Нет аккаунта?'}
+                </h2>
+                <div className=" flex gap-2">
+                  <Button color="danger" variant="flat" onPress={onClose}>
+                    Close
+                  </Button>
+                  <Button color="primary" onClick={authAcc} onPress={() => handleConfetti(onClose)}>
+                    {authRegistrAndLogin === 'login' ? 'Войти' : 'Зарегестрироваться'}
+                  </Button>
+                </div>
               </ModalFooter>
             </>
           )}

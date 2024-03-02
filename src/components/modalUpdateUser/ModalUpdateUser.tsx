@@ -41,8 +41,12 @@ export const ModalUpdateUser = memo(
       id: 0,
     });
     const avatarRef = useRef<HTMLInputElement>(null);
+    const bannerRef = useRef<HTMLInputElement>(null)
     const [handelChangeFile,files] = useUploadFile()
+    const [bannerUserUpdate,updateBannerFiles] = useUploadFile()
 
+
+    
     
     useEffect(() => { 
       setUserInfo({
@@ -50,10 +54,10 @@ export const ModalUpdateUser = memo(
         name: data?.name!,
         description: data?.description!,
         avatarPath: files || data?.avatarPath!,
-        profileUrl: data?.profileUrl!,
+        profileUrl: updateBannerFiles || data?.profileUrl!,
         id: +data?.id!,
       });
-    }, [data,files]);
+    }, [data,files,updateBannerFiles]);
 
     const userBannerProfile = `http://localhost:4200/uploads/banneprofile/${infoUser?.profileUrl}`;
 
@@ -93,7 +97,13 @@ export const ModalUpdateUser = memo(
                     loader={() => userBannerProfile}
                     src={userBannerProfile}
                   />
-                  <button>Добавить файл</button>
+                  <button onClick={() => bannerRef.current?.click()}>Добавить файл</button>
+                  <input
+                    ref={bannerRef}
+                    onChange={(event) => bannerUserUpdate(event, 'banneprofile')}
+                    type="file"
+                    hidden
+                  />
                 </div>
                 <div className="flex w-[100%] gap-6 items-center">
                   <Input

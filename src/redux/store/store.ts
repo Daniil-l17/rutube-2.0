@@ -4,7 +4,6 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { reducer } from '../auth/auth';
 import { api } from '../api/api';
-import {reducer as toastrReducer} from 'react-redux-toastr'
 import { setupListeners } from '@reduxjs/toolkit/query';
 const persistConfig = {
   key: 'root',
@@ -15,7 +14,6 @@ const persistConfig = {
 
 const reducerSmain = combineReducers({
   auth: reducer,
-  toastr: toastrReducer,
   [api.reducerPath]: api.reducer,
 });
 

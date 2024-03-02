@@ -12,7 +12,7 @@ export const PopularVideoHomePage = memo(({data}:{data:Ivideo[] | undefined}) =>
         width="100%"
         src={`http://localhost:4200/uploads/thumbnails/${data?.[0].thumbnailPath} `}
         alt={'hello'}
-        className="w-full  object-cover h-[400px]"
+        className="imgfil w-full  object-cover h-[400px]"
       />
     <h1 className='z-10 absolute invisible group-hover/item:visible '>hello</h1>
     </CardBody>

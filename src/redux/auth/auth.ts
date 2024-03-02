@@ -1,7 +1,6 @@
 import { axiosBase } from '@/config/axiosConfig';
 import { IauthData } from '@/types/authLogin';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { toastr } from 'react-redux-toastr';
 import { IAuthState } from './authInterfase';
 import { toast } from 'react-toastify';
 
@@ -30,11 +29,11 @@ export const register = createAsyncThunk<IauthData, Idata>(
   'auth/register',
   async ({ email, password }, thunkAPI) => {
     try {
-      const responce = await axiosBase.post(email, password);
-      toastr.success('Поздравляем!!', 'Успешный Регестрация')
+      const responce = await axiosBase.post('/auth/register',{email,password});
+      toast.success("Успешная регестрация!",{theme: 'colored'})
       return responce.data;
     } catch (e) {
-      toastr.error('Ошибка', 'Не вырная почта или пороль')
+      toast.error("Ошибка - Не верная почта или пороль",{theme: 'colored'})
       return thunkAPI.rejectWithValue(e);
     }
   },
@@ -56,6 +55,7 @@ export const authSlice = createSlice({
       state.accessToken = '',
       state.loading = true,
       state.user = null
+      toast.error("Вы вышли с аккаунта",{theme: 'colored'})
     },
   },
   extraReducers: builder => {

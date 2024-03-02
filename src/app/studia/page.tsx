@@ -1,8 +1,17 @@
-import React from 'react'
+import StudiaProvader from '@/provaders/StudiaProvader'
+import { Metadata } from 'next'
+
+
+
+  export const metadata:Metadata = {
+    title: 'Студия'
+  }
 
 const page = () => {
   return (
-    <div>privet</div>
+    <StudiaProvader>
+        
+    </StudiaProvader>
   )
 }
 
