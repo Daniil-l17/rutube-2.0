@@ -1,5 +1,5 @@
 export interface Ibase {
-  createdAt: string;
+  createAt: string;
 
   updateAt: string;
 

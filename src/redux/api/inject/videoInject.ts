@@ -27,9 +27,9 @@ export const videoApi = api.injectEndpoints({
     }),
     getVideoBySearchTermL: builder.query<Ivideo[],string>({
       query: (searchTerm) => ({
-        url: '/video/searchTerm',
+        url: '/video/',
         params: {
-          searchTerm
+          searchTerm: searchTerm
         }
       })
     }),
@@ -47,7 +47,7 @@ export const videoApi = api.injectEndpoints({
     updateVideo: builder.mutation<Ivideo,iVideoDto>({
       query: ({id,...body}) => ({
         url: `/video/${id}`,
-        method: 'POST',
+        method: 'PUT',
         body
       }),
       invalidatesTags: (result,error,{id}) => [{type: 'Video',id},{type: 'Profile'}]
@@ -62,4 +62,4 @@ export const videoApi = api.injectEndpoints({
   })
 })
 
-export const {usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery} = videoApi
+export const {usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery,useUpdateVideoMutation,useGetVideoBySearchTermLQuery} = videoApi

@@ -32,11 +32,15 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
   const { isOpen: updateOpen, onOpen: updateOpte, onClose: updateClose } = useDisclosure();
   const [updateprofile, { isLoading: updateLoading }] = useUpdateProfileMutation();
   const src = `http://localhost:4200/uploads/avatar/${data?.avatarPath}`;
+
   useLayoutEffect(() => {
     if (!user) {
       redirect('/');
     }
-  }, [user, data]);
+  }, [user]);
+
+
+  
 
   // ДОДЕЛАТЬ
   const profileUpdate = (infoUser: updateProfiledata) => {
@@ -50,7 +54,7 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
   };
 
   return (
-    <div className="mt-8">
+    <div style={{minHeight: '1000px'}} className="mt-8">
       {isLoading ? (
         <h2>loading.....</h2>
       ) : (
@@ -94,9 +98,14 @@ export const ChannelProvader = memo(({ children }: { children: React.ReactNode }
             )}
             <div className="flex flex-col">
               <div>
-                <h2 style={{ fontSize: '33px' }} className=" text-main uppercase font-medium">
+              <div className='flex gap-3'>
+              <h2 style={{ fontSize: '33px' }} className=" text-main uppercase font-medium">
                   {data?.name ? data.name : 'Пользователь'}
                 </h2>
+                {!!data?.isVerified && (
+                    <IoMdCheckmarkCircleOutline className="text-[20px] text-[#4848f6]" />
+                  )}
+              </div>
                 <p>{`@${data?.email}`}</p>
               </div>
               <div

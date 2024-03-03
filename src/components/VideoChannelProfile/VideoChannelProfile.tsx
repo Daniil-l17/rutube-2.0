@@ -21,7 +21,7 @@ export const VideoChannelProfile = ({ video }: { video: Ivideo[] }) => {
                 loading="lazy"
                 alt={'hello'}
                 className="w-full object-cover h-[230px]"
-                src={`http://localhost:4200/uploads/thumbnails/${video.thumbnailPath}`}
+                src={`http://localhost:4200/uploads/thumbnails/${video.thumbnaulPath}`}
               />
             </CardBody>
             <CardFooter className="text-small justify-between">

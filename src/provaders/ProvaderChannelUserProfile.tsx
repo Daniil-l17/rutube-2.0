@@ -17,6 +17,8 @@ import { formatNumberTok } from '@/utils/formatNumber';
 import { UserNoVideo } from '@/components/userNoVideo/UserNoVideo';
 import { CameraIcon } from '@/images/Icons/CameraIcon';
 import { toast } from 'react-toastify';
+import { useLayoutEffect } from 'react';
+import { redirect } from 'next/navigation';
 export const ProvaderChannelUserProfile = ({
   children,
   id,
@@ -24,17 +26,26 @@ export const ProvaderChannelUserProfile = ({
   children: React.ReactNode;
   id: string;
 }) => {
+
   const user = useAppSelector(useAuth);
+  const userId = useAppSelector(state => state.auth.user?.id);
   const { data, isLoading } = useGetProfileChannelDetailQuery(id, { refetchOnFocus: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: userMain } = useGetProfileQuery(null, { skip: !user });
+  const { data: userMain,refetch } = useGetProfileQuery(null, { skip: !user });
   const [subscribe, { isLoading: subscribeLoading }] = useGetSubscribeUserMutation();
   const src = `http://localhost:4200/uploads/avatar/${data?.avatarPath}`;
+
+  useLayoutEffect(() => {
+    if (userId === +id) {
+      refetch()
+      redirect('/Mychannel');
+    }
+  }, [userId]);
 
   const isExsict = userMain?.subscriptions.some(el => el.toChannel.id === +id);
 
   return (
-    <div className="mt-5">
+    <div style={{ minHeight: '1000px' }} className="mt-5">
       {isLoading ? (
         <h2>loading....</h2>
       ) : (
@@ -75,7 +86,7 @@ export const ProvaderChannelUserProfile = ({
                   <h2 style={{ fontSize: '33px' }} className=" text-main uppercase font-medium">
                     {data?.name}
                   </h2>
-                  {data?.isVerified && (
+                  {!!data?.isVerified && (
                     <IoMdCheckmarkCircleOutline className="text-[20px] text-[#4848f6]" />
                   )}
                 </div>
@@ -86,23 +97,28 @@ export const ProvaderChannelUserProfile = ({
               </div>
               <div
                 onClick={() => onOpen()}
-                className=" flex gap-2 cursor-pointer items-center px-1  mt-5">
-                <p className="w-[400px] truncate ">{data?.description}</p>
+                style={{ maxWidth: '460px' }}
+                className=" flex gap-2  cursor-pointer items-center px-1  mt-5">
+                <p style={{ maxWidth: '420px' }} className="truncate ">
+                  {data?.description}
+                </p>
                 <FaChevronRight />
               </div>
               <div className=" mb-2 flex items-end flex-1">
-                <Button
-                  disabled={subscribeLoading}
-                  onClick={() => {
-                    subscribe(data?.id),
-                      !isExsict
-                        ? toast.success(`Вы подписались на ${data?.name}`, { theme: 'colored' })
-                        : toast.error(`Вы отписались от ${data?.name}`, { theme: 'colored' });
-                  }}
-                  className="bg-[#222222] font-medium text-main "
-                  variant="faded">
-                  {isExsict ? 'Вы подписанны' : 'Подписаться'}
-                </Button>
+                {user && (
+                  <Button
+                    disabled={subscribeLoading}
+                    onClick={() => {
+                      subscribe(data?.id),
+                        !isExsict
+                          ? toast.success(`Вы подписались на ${data?.name}`, { theme: 'colored' })
+                          : toast.error(`Вы отписались от ${data?.name}`, { theme: 'colored' });
+                    }}
+                    className="bg-[#222222] font-medium text-main "
+                    variant="faded">
+                    {isExsict ? 'Вы подписанны' : 'Подписаться'}
+                  </Button>
+                )}
               </div>
             </div>
           </div>

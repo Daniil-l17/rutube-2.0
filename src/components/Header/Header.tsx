@@ -27,6 +27,9 @@ import { CameraIcon } from '@/images/Icons/CameraIcon';
 import { LuDownload } from 'react-icons/lu';
 import { useRouter } from 'next/navigation';
 import { VideoCreateModel } from '../VideoCreateModel/VideoCreateModel';
+import { SearchHeader } from '../searchHeader/SearchHeader';
+import { useGetVideoBySearchTermLQuery } from '@/redux/api/inject/videoInject';
+import { useDebounce } from '@/hooks/useDebounce';
 const Header = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -39,17 +42,34 @@ const Header = memo(() => {
   const [infoUser, setInfoUser] = useState<Idata>({ email: '', password: '' });
   const [authRegistrAndLogin, setAuthRegistrAndLogin] = useState<'login' | 'register'>('login');
   const db = useDispatch();
-  const { data, isLoading } = useGetProfileQuery(null, { skip: !user });
+  const { data, isLoading, refetch } = useGetProfileQuery(null, { skip: !user });
   const route = useRouter();
+  const [search, setSearch] = useState('');
+  const debounce = useDebounce(search);
+  const [open, setOpne] = useState(false);
+
+  const {
+    data: searchDate,
+    isLoading: loading,
+    error,
+  } = useGetVideoBySearchTermLQuery(debounce, {
+    skip: debounce.length < 2,
+  });
+
+  useEffect(() => {
+    setOpne(debounce?.length > 2 && searchDate?.length! > 0);
+  }, [debounce, searchDate]);
 
   const authAcc = () => {
     if (authRegistrAndLogin === 'login') {
       db(login(infoUser))
         .unwrap()
+        .then(() => refetch())
         .catch(() => setInfoUser({ email: '', password: '' }));
     } else {
       db(register(infoUser))
         .unwrap()
+        .then(() => refetch())
         .catch(() => setInfoUser({ email: '', password: '' }));
     }
   };
@@ -97,13 +117,21 @@ const Header = memo(() => {
 
   return (
     <header className=" pr-14 py-3 sticky z-20 bg-[#111]  top-0 flex justify-between items-center w-full">
-      <Search />
+      <Search search={search} setSearch={setSearch} />
+      {open && (
+        <div className=" w-[700px] left-0 h-[200px] bg-[#222] rounded-2xl top-[70px] absolute">
+          {loading ? (
+            <p>loading....</p>
+          ) : searchDate?.length! > 0 ? (
+            <SearchHeader searchDate={searchDate} />
+          ) : (
+            <p>по запросу ничего не найденно</p>
+          )}
+        </div>
+      )}
       {user ? (
         <div className="flex gap-5">
-          <VideoCreateModel
-            isOpen={createVideo}
-            onOpenChange={onOpencreateVideo}
-          />
+          <VideoCreateModel isOpen={createVideo} onOpenChange={onOpencreateVideo} />
           <Popover showArrow placement="bottom">
             <PopoverTrigger className="cursor-pointer">
               <div className="flex gap-4 items-center">

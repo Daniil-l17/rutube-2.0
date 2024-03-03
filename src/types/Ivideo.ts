@@ -17,7 +17,7 @@ export interface Ivideo extends Ibase {
 
   videoPath: string;
 
-  thumbnailPath: string;
+  thumbnaulPath: string;
 
   user?: Iuser;
 
@@ -25,4 +25,4 @@ export interface Ivideo extends Ibase {
 }
 
 
-export interface IvideoDto extends Pick<Ivideo,'id' | 'thumbnailPath' | 'description' | 'name' | 'videoPath' | 'isPublic'>{}
+export interface IvideoDto extends Pick<Ivideo,'id' | 'thumbnaulPath' | 'description' | 'name' | 'videoPath' | 'isPublic'>{}

@@ -10,7 +10,7 @@ export const PopularVideoHomePage = memo(({data}:{data:Ivideo[] | undefined}) =>
         shadow="sm"
         radius="lg"
         width="100%"
-        src={`http://localhost:4200/uploads/thumbnails/${data?.[0].thumbnailPath} `}
+        src={`http://localhost:4200/uploads/thumbnails/${data?.[0].thumbnaulPath} `}
         alt={'hello'}
         className="imgfil w-full  object-cover h-[400px]"
       />

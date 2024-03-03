@@ -1,5 +1,4 @@
 'use client';
-import { useAppSelector } from '@/hooks/useAppSelector';
 import { useUploadFile } from '@/hooks/useUploadFile';
 import { MailIcon } from '@/images/Icons/MailIcon';
 import { updateProfiledata } from '@/provaders/ChannelProvader';
@@ -11,12 +10,9 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  useDisclosure,
-  User,
   Avatar,
 } from '@nextui-org/react';
 import { Input } from '@nextui-org/react';
-import axios from 'axios';
 import Image from 'next/image';
 import { memo, useEffect, useRef, useState } from 'react';
 
@@ -41,14 +37,11 @@ export const ModalUpdateUser = memo(
       id: 0,
     });
     const avatarRef = useRef<HTMLInputElement>(null);
-    const bannerRef = useRef<HTMLInputElement>(null)
-    const [handelChangeFile,files] = useUploadFile()
-    const [bannerUserUpdate,updateBannerFiles] = useUploadFile()
+    const bannerRef = useRef<HTMLInputElement>(null);
+    const [handelChangeFile, files] = useUploadFile();
+    const [bannerUserUpdate, updateBannerFiles] = useUploadFile();
 
-
-    
-    
-    useEffect(() => { 
+    useEffect(() => {
       setUserInfo({
         email: data?.email!,
         name: data?.name!,
@@ -57,7 +50,21 @@ export const ModalUpdateUser = memo(
         profileUrl: updateBannerFiles || data?.profileUrl!,
         id: +data?.id!,
       });
-    }, [data,files,updateBannerFiles]);
+    }, [data]);
+
+    useEffect(() => {
+      setUserInfo(prev => ({
+        ...prev,
+        avatarPath: files || data?.avatarPath!,
+      }));
+    }, [files]);
+
+    useEffect(() => {
+      setUserInfo(prev => ({
+        ...prev,
+        profileUrl: updateBannerFiles || data?.profileUrl!,
+      }));
+    }, [updateBannerFiles]);
 
     const userBannerProfile = `http://localhost:4200/uploads/banneprofile/${infoUser?.profileUrl}`;
 
@@ -81,7 +88,7 @@ export const ModalUpdateUser = memo(
                   />
                   <input
                     ref={avatarRef}
-                    onChange={(event) => handelChangeFile(event, 'avatar')}
+                    onChange={event => handelChangeFile(event, 'avatar')}
                     type="file"
                     hidden
                   />
@@ -100,7 +107,7 @@ export const ModalUpdateUser = memo(
                   <button onClick={() => bannerRef.current?.click()}>Добавить файл</button>
                   <input
                     ref={bannerRef}
-                    onChange={(event) => bannerUserUpdate(event, 'banneprofile')}
+                    onChange={event => bannerUserUpdate(event, 'banneprofile')}
                     type="file"
                     hidden
                   />
