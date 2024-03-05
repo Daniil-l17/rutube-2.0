@@ -1,5 +1,5 @@
 'use client';
-import { memo, useEffect, useState } from 'react';
+import { Fragment, memo, useEffect, useState } from 'react';
 import { Search } from '../search/Search';
 import {
   Modal,
@@ -42,7 +42,7 @@ const Header = memo(() => {
   const [infoUser, setInfoUser] = useState<Idata>({ email: '', password: '' });
   const [authRegistrAndLogin, setAuthRegistrAndLogin] = useState<'login' | 'register'>('login');
   const db = useDispatch();
-  const { data, isLoading, refetch } = useGetProfileQuery(null, { skip: !user });
+  const { data } = useGetProfileQuery(null, { skip: !user });
   const route = useRouter();
   const [search, setSearch] = useState('');
   const debounce = useDebounce(search);
@@ -64,12 +64,10 @@ const Header = memo(() => {
     if (authRegistrAndLogin === 'login') {
       db(login(infoUser))
         .unwrap()
-        .then(() => refetch())
         .catch(() => setInfoUser({ email: '', password: '' }));
     } else {
       db(register(infoUser))
         .unwrap()
-        .then(() => refetch())
         .catch(() => setInfoUser({ email: '', password: '' }));
     }
   };
@@ -117,9 +115,10 @@ const Header = memo(() => {
 
   return (
     <header className=" pr-14 py-3 sticky z-20 bg-[#111]  top-0 flex justify-between items-center w-full">
-      <Search search={search} setSearch={setSearch} />
+      <Search  search={search} setSearch={setSearch} />
       {open && (
-        <div className=" w-[700px] left-0 h-[200px] bg-[#222] rounded-2xl top-[70px] absolute">
+        <Fragment>
+                  <div onClick={e => e.stopPropagation()} className=" w-[700px] z-40 left-0 h-[200px] bg-[#222] rounded-2xl top-[70px] absolute">
           {loading ? (
             <p>loading....</p>
           ) : searchDate?.length! > 0 ? (
@@ -128,6 +127,8 @@ const Header = memo(() => {
             <p>по запросу ничего не найденно</p>
           )}
         </div>
+      <div onClick={() => {setOpne(false), setSearch('')}} className="  fixed top-0 left-0 right-0 bottom-0"></div>
+        </Fragment>
       )}
       {user ? (
         <div className="flex gap-5">

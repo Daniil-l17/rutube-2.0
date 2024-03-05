@@ -36,7 +36,7 @@ export const UserHeader = memo(({ logout, data }: { logout: () => void; data: Iu
               <h4 className="text-[16px] font-semibold !text-[#f4f6fb] leading-none">
                 {data?.name ? data.name : 'Пользователь'}
               </h4>
-              {data.isVerified && (
+              {data?.isVerified && (
                 <IoMdCheckmarkCircleOutline className="text-[17px] text-[#4848f6]" />
               )}
             </div>

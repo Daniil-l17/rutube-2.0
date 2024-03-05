@@ -28,7 +28,7 @@ export const Menu = memo(() => {
   
   return (
     <div className="w-[250px] max-xl:px-[2px]  max-xl:w-[200px] h-[960px] sticky top-0 flex flex-col px-6 py-6">
-      <h1>Rutube v2</h1>
+      <Link href={'/'}><h1>Rutube v2</h1></Link>
       <div className=" mt-8 h-full flex  flex-col">
         <h2 className=" font-medium text-xl ">Меню</h2>
         <ul className="flex flex-col text-xl gap-8 mt-6">

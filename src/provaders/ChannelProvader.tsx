@@ -12,7 +12,6 @@ import { memo, useLayoutEffect } from 'react';
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react';
 import { FaChevronRight } from 'react-icons/fa';
 import { ModalUpdateUser } from '@/components/modalUpdateUser/ModalUpdateUser';
-import { toastr } from 'react-redux-toastr';
 import { toast } from 'react-toastify';
 import { CameraIcon } from '@/images/Icons/CameraIcon';
 import { GalleryIcon } from '@/images/Icons/GaleryIcon';

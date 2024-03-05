@@ -1,13 +1,17 @@
+
+
+import { VideoProvader } from '@/provaders/VideoProvader'
 import { Metadata } from 'next'
-import React from 'react'
+import React, { Fragment } from 'react'
 
   export const metadata:Metadata = {
     title: 'видео'
   }
 
 const page = ({params}:{params: {videoId:string}}) => {
+
   return (
-    <div>{params.videoId}</div>
+    <VideoProvader id={+params.videoId}></VideoProvader>
   )
 }
 

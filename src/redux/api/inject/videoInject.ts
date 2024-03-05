@@ -58,8 +58,15 @@ export const videoApi = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: () => [{type: 'Video'},{type: 'Profile'}]
-    })
+    }),
+    updateViews: builder.mutation<string,number>({
+      query: (id) => ({
+        url: `/video/update-views/${id}`,
+        method: 'PUT'
+      }),
+      invalidatesTags: () => [{type: 'Video'}]
+    }),
   })
 })
 
-export const {usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery,useUpdateVideoMutation,useGetVideoBySearchTermLQuery} = videoApi
+export const { useGetVideoByIdQuery,useUpdateViewsMutation, usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery,useUpdateVideoMutation,useGetVideoBySearchTermLQuery} = videoApi

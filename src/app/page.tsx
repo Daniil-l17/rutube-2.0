@@ -43,7 +43,7 @@ const localeObject = {
     h: 'час назад',
     hh: '%d часов назад', // e.g. 2 hours, %d been replaced with 2
     d: 'день назад',
-    dd: '%d дней назад',
+    dd: '%d дня назад',
     M: ' месяцев назад',
     MM: '%d месяцев назад',
     y: 'a лет назад',
@@ -57,9 +57,6 @@ export default function Home() {
   const { data: video } = useGetVideoQuery();
   const random = Math.floor(Math.random() * data?.length!);
 
-
-  
-  
   const rendomVideo = data?.[random];
   return (
     <div className="">
@@ -93,40 +90,42 @@ export default function Home() {
             className="w-[350px] bg-[#222222] text-main h-[300px]"
             isPressable
             onPress={() => console.log('item pressed')}>
-            <Image
-              shadow="sm"
-              radius="lg"
-              width="100%"
-              alt={'hello'}
-              className="imgfil w-full object-cover h-[200px]"
-              src={`http://localhost:4200/uploads/thumbnails/${el?.thumbnaulPath}`}
-            />
-            <div className=" h-full px-3 flex py-3 flex-col">
-              <div className="flex items-center gap-3">
-                <Tooltip
-                  delay={300}
-                  closeDelay={300}
-                  placement={'top-start'}
-                  content={el.user?.name}
-                  offset={10}
-                  className="bg-[#313131] text-main">
-                  <Link href={user === el.user?.id ? '/Mychannel' : `/channel/${el.user?.id}`}>
-                    <Avatar
-                      style={{ width: '40px', height: '40px' }}
-                      src={`http://localhost:4200/uploads/avatar/${el.user?.avatarPath}`}
-                    />
-                  </Link>
-                </Tooltip>
-                <h2 className="textcontenthome text-start">{el.name}</h2>
-              </div>
-              <CardFooter className="text-small flex flex-1 !items-end  !p-0 !justify-between">
-                <b className=" ml-1 ">{dayjs(el.createAt).locale(localeObject).fromNow()}</b>
-                <div className="flex text-[#939393] gap-2 items-center">
-                  <p className=" text-[#939393]">{`${formatNumberTok(el.views)}`}</p>
-                  <MdOutlineRemoveRedEye className="!text-[20px]" />
+            <Link href={`/video/${el.id}`}>
+              <Image
+                shadow="sm"
+                radius="lg"
+                width="100%"
+                alt={'hello'}
+                className="imgfil w-full object-cover h-[200px]"
+                src={`http://localhost:4200/uploads/thumbnails/${el?.thumbnaulPath}`}
+              />
+              <div className=" h-full px-3 flex py-3 flex-col">
+                <div className="flex items-center gap-3">
+                  <Tooltip
+                    delay={300}
+                    closeDelay={300}
+                    placement={'top-start'}
+                    content={el.user?.name}
+                    offset={10}
+                    className="bg-[#313131] text-main">
+                    <Link href={user === el.user?.id ? '/Mychannel' : `/channel/${el.user?.id}`}>
+                      <Avatar
+                        style={{ width: '40px', height: '40px' }}
+                        src={`http://localhost:4200/uploads/avatar/${el.user?.avatarPath}`}
+                      />
+                    </Link>
+                  </Tooltip>
+                  <h2 className="textcontenthome text-start">{el.name}</h2>
                 </div>
-              </CardFooter>
-            </div>
+                <CardFooter className="text-small flex  mt-2 !items-end  !p-0 !justify-between">
+                  <b className=" ml-1 ">{dayjs(el.createAt).locale(localeObject).fromNow()}</b>
+                  <div className="flex text-[#939393] gap-2 items-center">
+                    <p className=" text-[#939393]">{`${formatNumberTok(el.views)}`}</p>
+                    <MdOutlineRemoveRedEye className="!text-[20px]" />
+                  </div>
+                </CardFooter>
+              </div>
+            </Link>
           </Card>
         ))}
       </div>

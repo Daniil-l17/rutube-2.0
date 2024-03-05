@@ -9,7 +9,13 @@ import { useEffect } from 'react';
 
 export function NextProviderUI({children}: { children: React.ReactNode }) {
   const router = useRouter();
-
+  const user = useAppSelector(useAuth);
+  const {refetch } = useGetProfileQuery(null,{skip:!user});
+  useEffect(() => {
+    if(user){
+      refetch()
+    }
+  },[user])
   return (
     <NextUIProvider className=' h-[100%] gap-3 w-full flex' navigate={router.push}>
       {children}
