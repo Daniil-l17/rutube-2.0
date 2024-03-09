@@ -123,6 +123,7 @@ export const ModalUpdateUser = memo(
                     placeholder="Ваш email"
                     className="max-w-[100%]"
                     endContent={
+                      // @ts-ignore
                       <MailIcon className="text-[30px] text-default-400 pointer-events-none flex-shrink-0" />
                     }
                   />
