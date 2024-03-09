@@ -4,7 +4,7 @@ import { Iuser } from '@/types/IUser';
 import { Metadata } from 'next';
 import { Fragment } from 'react';
 
-export const generateMetadata = async ({
+/*export const generateMetadata = async ({
   params,
 }: {
   params: { id: string };
@@ -13,6 +13,10 @@ export const generateMetadata = async ({
   return {
     title: `${data.name.trim() ? data.name : `Пользователь ${data.id}`}`,
   };
+};*/
+
+export const metadata: Metadata = {
+  title: 'Мой канал',
 };
 
 const page = ({ params }: { params: { id: string } }) => {
