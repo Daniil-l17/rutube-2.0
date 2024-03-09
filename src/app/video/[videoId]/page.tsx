@@ -4,7 +4,7 @@ import { Ivideo } from '@/types/Ivideo';
 import { Metadata } from 'next';
 import React, { Fragment } from 'react';
 
-export const generateMetadata = async ({
+/*export const generateMetadata = async ({
   params,
 }: {
   params: { videoId: string };
@@ -13,6 +13,10 @@ export const generateMetadata = async ({
   return {
     title: `${data.name}`,
   };
+};
+*/
+export const metadata: Metadata = {
+  title: 'Видео',
 };
 
 const page = ({ params }: { params: { videoId: string } }) => {
