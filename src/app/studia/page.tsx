@@ -1,18 +1,12 @@
-import StudiaProvader from '@/provaders/StudiaProvader'
-import { Metadata } from 'next'
+import StudiaProvader from '@/provaders/StudiaProvader';
+import { Metadata } from 'next';
 
-
-
-  export const metadata:Metadata = {
-    title: 'Студия'
-  }
+export const metadata: Metadata = {
+  title: 'Студия',
+};
 
 const page = () => {
-  return (
-    <StudiaProvader>
-        
-    </StudiaProvader>
-  )
-}
+  return <StudiaProvader></StudiaProvader>;
+};
 
-export default page
+export default page;

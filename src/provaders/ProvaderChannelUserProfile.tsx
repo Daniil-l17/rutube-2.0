@@ -26,18 +26,16 @@ export const ProvaderChannelUserProfile = ({
   children: React.ReactNode;
   id: string;
 }) => {
-
   const user = useAppSelector(useAuth);
   const userId = useAppSelector(state => state.auth.user?.id);
   const { data, isLoading } = useGetProfileChannelDetailQuery(id, { refetchOnFocus: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: userMain,refetch } = useGetProfileQuery(null, { skip: !user });
+  const { data: userMain } = useGetProfileQuery(null, { skip: !user });
   const [subscribe, { isLoading: subscribeLoading }] = useGetSubscribeUserMutation();
   const src = `http://localhost:4200/uploads/avatar/${data?.avatarPath}`;
 
   useLayoutEffect(() => {
     if (userId === +id) {
-      refetch()
       redirect('/Mychannel');
     }
   }, [userId]);
@@ -72,11 +70,19 @@ export const ProvaderChannelUserProfile = ({
           </div>
           <div className="flex gap-4 px-6 py-6">
             <Image
-              style={{ borderRadius: '100px', width: '180px', height: '180px' }}
+              style={{
+                borderRadius: '100px',
+                width: '180px',
+                height: '180px',
+                backgroundColor: '#222222',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
               loader={() => src}
               priority
               src={src}
-              alt="user"
+              alt={`${data?.id}`}
               width={180}
               height={180}
             />
@@ -84,7 +90,7 @@ export const ProvaderChannelUserProfile = ({
               <div>
                 <div className="flex items-center gap-3">
                   <h2 style={{ fontSize: '33px' }} className=" text-main uppercase font-medium">
-                    {data?.name}
+                    {data?.name ? data.name : `Пользователь ${data?.id}`}
                   </h2>
                   {!!data?.isVerified && (
                     <IoMdCheckmarkCircleOutline className="text-[20px] text-[#4848f6]" />
@@ -100,7 +106,7 @@ export const ProvaderChannelUserProfile = ({
                 style={{ maxWidth: '460px' }}
                 className=" flex gap-2  cursor-pointer items-center px-1  mt-5">
                 <p style={{ maxWidth: '420px' }} className="truncate ">
-                  {data?.description}
+                  {data?.description ? data.description : 'Описание канала'}
                 </p>
                 <FaChevronRight />
               </div>

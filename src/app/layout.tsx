@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className={`${inter.className} h-auto flex`}>
+      <body className={`${inter.className} flex`}>
         <ProviderRedux>
           <NextProviderUI>
             <NextTopLoader color="#c01b1be0" />

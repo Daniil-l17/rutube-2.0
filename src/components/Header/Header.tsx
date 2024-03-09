@@ -30,6 +30,7 @@ import { VideoCreateModel } from '../VideoCreateModel/VideoCreateModel';
 import { SearchHeader } from '../searchHeader/SearchHeader';
 import { useGetVideoBySearchTermLQuery } from '@/redux/api/inject/videoInject';
 import { useDebounce } from '@/hooks/useDebounce';
+
 const Header = memo(() => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
@@ -46,13 +47,9 @@ const Header = memo(() => {
   const route = useRouter();
   const [search, setSearch] = useState('');
   const debounce = useDebounce(search);
-  const [open, setOpne] = useState(false);
+  const [open, setOpne] = useState<boolean>(false);
 
-  const {
-    data: searchDate,
-    isLoading: loading,
-    error,
-  } = useGetVideoBySearchTermLQuery(debounce, {
+  const { data: searchDate, isLoading: loading } = useGetVideoBySearchTermLQuery(debounce, {
     skip: debounce.length < 2,
   });
 
@@ -62,13 +59,16 @@ const Header = memo(() => {
 
   const authAcc = () => {
     if (authRegistrAndLogin === 'login') {
+      // @ts-ignore
       db(login(infoUser))
         .unwrap()
         .catch(() => setInfoUser({ email: '', password: '' }));
     } else {
+      // @ts-ignore
       db(register(infoUser))
         .unwrap()
-        .catch(() => setInfoUser({ email: '', password: '' }));
+        .catch(() => setInfoUser({ email: '', password: '' }))
+        .then(() => setAuthRegistrAndLogin('login'));
     }
   };
 
@@ -78,7 +78,7 @@ const Header = memo(() => {
       var defaults = {
         origin: { y: 0.7 },
       };
-
+      // @ts-ignore
       function fire(particleRatio: any, opts: any) {
         confetti({
           ...defaults,
@@ -115,19 +115,25 @@ const Header = memo(() => {
 
   return (
     <header className=" pr-14 py-3 sticky z-20 bg-[#111]  top-0 flex justify-between items-center w-full">
-      <Search  search={search} setSearch={setSearch} />
+      <Search search={search} setSearch={setSearch} />
       {open && (
         <Fragment>
-                  <div onClick={e => e.stopPropagation()} className=" w-[700px] z-40 left-0 h-[200px] bg-[#222] rounded-2xl top-[70px] absolute">
-          {loading ? (
-            <p>loading....</p>
-          ) : searchDate?.length! > 0 ? (
-            <SearchHeader searchDate={searchDate} />
-          ) : (
-            <p>по запросу ничего не найденно</p>
-          )}
-        </div>
-      <div onClick={() => {setOpne(false), setSearch('')}} className="  fixed top-0 left-0 right-0 bottom-0"></div>
+          <div
+            onClick={e => e.stopPropagation()}
+            className=" flex gap-3 overflow-x-auto w-[700px] px-3 py-2 z-40 left-0 h-[200px] bg-[#222] rounded-2xl top-[70px] absolute">
+            {loading ? (
+              <p>loading....</p>
+            ) : searchDate?.length! > 0 ? (
+              <SearchHeader setOpne={setOpne!} searchDate={searchDate} />
+            ) : (
+              <p>по запросу ничего не найденно</p>
+            )}
+          </div>
+          <div
+            onClick={() => {
+              setOpne(false), setSearch('');
+            }}
+            className="  fixed top-0 left-0 right-0 bottom-0"></div>
         </Fragment>
       )}
       {user ? (
@@ -204,6 +210,7 @@ const Header = memo(() => {
                 <Input
                   autoFocus
                   endContent={
+                    // @ts-ignore
                     <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Email"
@@ -215,6 +222,7 @@ const Header = memo(() => {
                 />
                 <Input
                   endContent={
+                    // @ts-ignore
                     <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
                   }
                   label="Password"
@@ -226,15 +234,6 @@ const Header = memo(() => {
                   className=" border border-solid rounded-2xl"
                 />
                 <div className="flex py-2 px-1 justify-between">
-                  <Checkbox
-                    classNames={{
-                      label: 'text-small',
-                    }}>
-                    <p className="text-[#939393] font-medium">Подвердить</p>
-                  </Checkbox>
-                  <Link color="primary" href="#" size="sm">
-                    Forgot password?
-                  </Link>
                 </div>
               </ModalBody>
               <ModalFooter className="flex justify-between items-center">

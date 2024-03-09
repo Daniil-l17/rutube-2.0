@@ -35,7 +35,9 @@ export const UpdateVideoModel = memo(
       id: 0,
     });
     const ref = useRef<HTMLInputElement>(null);
+    const videoRef = useRef<HTMLInputElement>(null);
     const [updateFile, file] = useUploadFile();
+    const [updateVIdeo, fileVideo] = useUploadFile();
 
 
     useEffect(() => {
@@ -55,6 +57,13 @@ export const UpdateVideoModel = memo(
         thumbnaulPath: file || el?.thumbnaulPath!,
       }));
     }, [file]);
+
+    useEffect(() => {
+      setUserInfo(prev => ({
+        ...prev,
+        videoPath: fileVideo || el?.videoPath!,
+      }));
+    }, [fileVideo]);
 
 
     return (
@@ -83,6 +92,8 @@ export const UpdateVideoModel = memo(
                     className="max-w-xs !bg-[#71707074] !text-main rounded-2xl"
                     onChange={e => setUserInfo(prev => ({ ...prev, description: e.target.value }))}
                   />
+                  <Button onClick={() => videoRef.current?.click()}  color="primary" variant="flat">Загрузить видео</Button>
+                  <input ref={videoRef} onChange={(e) => updateVIdeo(e,'videoPath')} type="file" hidden />
                   <div className="flex flex-1 gap-2 justify-start items-end">
                     <p>{!infoUser.isPublic ? 'Не публичное видео' : 'Публичное видео'}</p>
                     <Checkbox

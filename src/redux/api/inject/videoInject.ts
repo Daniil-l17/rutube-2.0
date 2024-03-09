@@ -64,9 +64,16 @@ export const videoApi = api.injectEndpoints({
         url: `/video/update-views/${id}`,
         method: 'PUT'
       }),
-      invalidatesTags: () => [{type: 'Video'}]
+      invalidatesTags: (result,error,id) => [{type: 'Video'},{type: 'Profile',id}]
     }),
+    updateLike: builder.mutation<string,number>({
+      query: (id) => ({
+        url: `/video/update-likes/${id}`,
+        method: 'PUT'
+      }),
+      invalidatesTags: (result,error,id) => [{type: 'Video',id}]
+    })
   })
 })
 
-export const { useGetVideoByIdQuery,useUpdateViewsMutation, usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery,useUpdateVideoMutation,useGetVideoBySearchTermLQuery} = videoApi
+export const {useUpdateLikeMutation, useGetVideoByIdQuery,useUpdateViewsMutation, usePopularVideoQuery,useCreateVideoMutation,useDeleteVideoMutation,useGetVideoQuery,useUpdateVideoMutation,useGetVideoBySearchTermLQuery} = videoApi

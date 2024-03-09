@@ -1,6 +1,6 @@
 'use client';
-import { PopularVideoHomePage } from '@/components/PopularVideoHomePage/PopularVideoHomePage';
-import { useGetVideoQuery, usePopularVideoQuery } from '@/redux/api/inject/videoInject';
+
+import {usePopularVideoQuery } from '@/redux/api/inject/videoInject';
 import { formatNumberTok } from '@/utils/formatNumber';
 import { Avatar, Card, CardBody, CardFooter, Image, Tooltip } from '@nextui-org/react';
 import dayjs from 'dayjs';
@@ -13,17 +13,14 @@ import { Fragment } from 'react';
 import { Loading } from '@/components/Loading/Loading';
 import { Error } from '@/components/Error/Error';
 dayjs.extend(relativetime);
-export default function Home() {
+export function Trendsvideo() {
   const { data, isLoading, error } = usePopularVideoQuery(null);
   const user = useAppSelector(state => state.auth.user?.id);
-  const { data: video } = useGetVideoQuery();
-  const random = Math.floor(Math.random() * data?.length!);
 
-  const rendomVideo = data?.[random];
   return (
     <div className="">
       <div className=" mt-7">
-        <h2 className=" text-[40px] font-medium ">Главная</h2>
+        <h2 className=" text-[40px] font-medium ">Популярные видео</h2>
       </div>
       {isLoading ? (
         <Loading />
@@ -31,28 +28,8 @@ export default function Home() {
         <Error />
       ) : (
         <Fragment>
-          <div className="flex gap-4 pr-20 h-[430px] justify-between py-5 ">
-            <PopularVideoHomePage data={data} />
-          <Link href={`/video/${rendomVideo?.id}`}>
-          <Card
-              shadow="sm"
-              className="max-w-[650px] bg-[#222222] text-main h-[340px]"
-              isPressable>
-              <CardBody className="overflow-visible p-0">
-                <Image
-                  shadow="sm"
-                  radius="lg"
-                  width="100%"
-                  alt={'hello'}
-                  className="imgfil w-full object-cover h-[340px]"
-                  src={`http://localhost:4200/uploads/thumbnails/${rendomVideo?.thumbnaulPath}`}
-                />
-              </CardBody>
-            </Card>
-          </Link>
-          </div>
           <div className=" flex flex-wrap  pr-9  gap-8 ">
-            {video?.map(el => (
+            {data?.map(el => (
               <Card
                 key={el.id}
                 shadow="sm"

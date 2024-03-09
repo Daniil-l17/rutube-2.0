@@ -6,4 +6,5 @@ export interface Icomment extends Ibase {
   user: Iuser
   videos?: Ivideo
   message:string
+  
 } 

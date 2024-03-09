@@ -58,7 +58,7 @@ const StudiaProvader = () => {
           <p>Видео нету</p>
         ) : (
           data?.videos?.map(el => (
-            <>
+
               <Card
                 key={el.id}
                 shadow="sm"
@@ -109,7 +109,7 @@ const StudiaProvader = () => {
                   </CardFooter>
                 </div>
               </Card>
-            </>
+
           ))
         )}
       </ul>

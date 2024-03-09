@@ -1,4 +1,4 @@
-export const LockIcon = (props) => (
+export const LockIcon = () => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -7,7 +7,6 @@ export const LockIcon = (props) => (
     role="presentation"
     viewBox="0 0 24 24"
     width="1em"
-    {...props}
   >
     <path
       d="M12.0011 17.3498C12.9013 17.3498 13.6311 16.6201 13.6311 15.7198C13.6311 14.8196 12.9013 14.0898 12.0011 14.0898C11.1009 14.0898 10.3711 14.8196 10.3711 15.7198C10.3711 16.6201 11.1009 17.3498 12.0011 17.3498Z"

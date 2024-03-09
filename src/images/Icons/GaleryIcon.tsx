@@ -1,4 +1,4 @@
-export const GalleryIcon = (props) => (
+export const GalleryIcon = () => (
   <svg
     aria-hidden="true"
     focusable="false"
@@ -7,7 +7,6 @@ export const GalleryIcon = (props) => (
     viewBox="0 0 24 24"
     width="24"
     fill="none"
-    {...props}
   >
     <path d="M2.58078 19.0112L2.56078 19.0312C2.29078 18.4413 2.12078 17.7713 2.05078 17.0312C2.12078 17.7613 2.31078 18.4212 2.58078 19.0112Z" fill="currentColor"/>
     <path d="M9.00109 10.3811C10.3155 10.3811 11.3811 9.31553 11.3811 8.00109C11.3811 6.68666 10.3155 5.62109 9.00109 5.62109C7.68666 5.62109 6.62109 6.68666 6.62109 8.00109C6.62109 9.31553 7.68666 10.3811 9.00109 10.3811Z" fill="currentColor"/>
