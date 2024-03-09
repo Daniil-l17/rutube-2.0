@@ -38,7 +38,7 @@ export const VideoProvader = ({ id }: { id: number }) => {
     <div>
       <div className="flex justify-between gap-3 pr-8">
         <div className="ess flex fddf:flex-col gap-3 w-full max-[1800px]:!flex-col ">
-          <div className='videourl' style={{ width: '1000px' }}>
+          <div className="videourl" style={{ width: '1000px' }}>
             <ReactPlayer
               width={1000}
               height={570}
@@ -89,6 +89,7 @@ export const VideoProvader = ({ id }: { id: number }) => {
               <Button
                 onClick={() => {
                   title.length &&
+                    user &&
                     createComment({ videoId: id, message: title })
                       .unwrap()
                       .then(() => setTitle(''));
@@ -135,17 +136,19 @@ export const VideoProvader = ({ id }: { id: number }) => {
             )}
           </div>
           <div>
-            <Button
-              className=" cursor-pointer"
-              disabled={updateLikeOne === 1}
-              onClick={() => {
-                updateLike(id), setUpdateLikeOne(1);
-              }}
-              color="primary"
-              variant="flat">
-              <GrLike />
-              {formatNumberTok(data?.likes)}
-            </Button>
+            {user && (
+              <Button
+                className=" cursor-pointer"
+                disabled={updateLikeOne === 1}
+                onClick={() => {
+                  updateLike(id), setUpdateLikeOne(1);
+                }}
+                color="primary"
+                variant="flat">
+                <GrLike />
+                {formatNumberTok(data?.likes)}
+              </Button>
+            )}
           </div>
         </div>
       </div>
