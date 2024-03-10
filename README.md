@@ -2,6 +2,8 @@
 
 This app was created via React, NextJS,createAsyncThunk, Redux Toolkit, Redux Persist, Framer Motion and TailwindCSS
 
+Back-end https://github.com/Daniil-l17/back-end_Rutube-2.0
+
 ## Features
 
 - Watch the video
@@ -18,7 +20,7 @@ This app was created via React, NextJS,createAsyncThunk, Redux Toolkit, Redux Pe
 
 - Beautiful animations
 
--Leave a comment
+- Leave a comment
 
 - Get likes
 
@@ -26,7 +28,7 @@ This app was created via React, NextJS,createAsyncThunk, Redux Toolkit, Redux Pe
 
 ## Environment Variables
 
-To run this project, you will need to add the following environment variables to your .env file.
+
 
 
 ## Run Locally
@@ -34,39 +36,41 @@ To run this project, you will need to add the following environment variables to
 Clone the project
 
 ```bash
-  git clone https://github.com/Daniil-l17/rutube-2.0.git
+git clone https://github.com/Daniil-l17/rutube-2.0.git
 ```
 
 Install dependencies
 
 ```bash
-  yarn install
+yarn install
 ```
 
 Start the app in dev
 
 ```bash
-  yarn dev
+yarn dev
 ```
 
 Start the app in production
 
 ```bash
-  yarn build
+yarn build
 ```
 
 then
 
 ```bash
-  yarn start
+yarn start
 ```
 
 ## Screenshots
 
-![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/959534f9-088b-407e-b0ad-088f0df5a664))
+![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/35b79b25-9741-4994-8688-86cd09b004fb)
 
-![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/a40ae008-07e2-4034-abe1-bccc73baaf95))
+![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/8f2ed689-db90-4612-bc9d-faba13fc71fe)
 
-![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/beac6724-d0b3-457c-ae77-ea1c56f4c839)))
+![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/0748d064-8d19-4fe9-8443-c09d8819ec25)
 
-![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/843c7b82-01c1-49b4-9282-31ca34ffc39b)))
+
+![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/fdb751c5-f055-40a2-b4c4-4c1eb9e276cc)
+
