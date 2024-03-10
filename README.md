@@ -1,45 +1,40 @@
-# Streaming music app
+# Applications for watching videos
 
-This app was created via React, NextJS, Redux Toolkit, React Query, Redux Persist, Framer Motion and TailwindCSS
+This app was created via React, NextJS,createAsyncThunk, Redux Toolkit, Redux Persist, Framer Motion and TailwindCSS
 
 ## Features
 
-- Listen to your favorite music
+- Watch the video
 
-- Getting world's top charts
+- Getting all video info
 
-- Getting all song's info
+- Edit video
 
-- Getting all artist's info
+- Edit profile
 
-- Mobile version
+- Getting all user info
 
-- Custom player
-
-- Saving music data so it doesn't pause on other pages
-
-- Cross-browser app
+- Сreate your own video
 
 - Beautiful animations
 
-## Deployment: [CLICK](https://react-music-mor3hate.vercel.app/)
+-Leave a comment
+
+- Get likes
+
+## Deployment: [CLICK](https://rutube-2-0.vercel.app/)
 
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file.
 
-You can get them from: `rapidApi` **shazamCore API**
-
-`REACT_RAPID_KEY`
-
-`REACT_SERVER_URL`
 
 ## Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://github.com/mor3hate/react-music.git
+  git clone https://github.com/Daniil-l17/rutube-2.0.git
 ```
 
 Install dependencies
@@ -68,6 +63,10 @@ then
 
 ## Screenshots
 
-![App Screenshot](https://s4.gifyu.com/images/232232323.gif)
+![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/959534f9-088b-407e-b0ad-088f0df5a664))
 
-![App Screenshot](https://s4.gifyu.com/images/3434343434.gif)
+![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/a40ae008-07e2-4034-abe1-bccc73baaf95))
+
+![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/beac6724-d0b3-457c-ae77-ea1c56f4c839)))
+
+![App Screenshot](![изображение](https://github.com/Daniil-l17/rutube-2.0/assets/129774580/843c7b82-01c1-49b4-9282-31ca34ffc39b)))
