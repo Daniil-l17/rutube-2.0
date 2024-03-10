@@ -4,6 +4,16 @@ This app was created via React, NextJS,createAsyncThunk, Redux Toolkit, Redux Pe
 
 Back-end https://github.com/Daniil-l17/back-end_Rutube-2.0
 
+Start Back-end the app in dev
+
+```bash
+npm i 
+```
+
+```bash
+npm run start:dev 
+```
+
 ## Features
 
 - Watch the video
